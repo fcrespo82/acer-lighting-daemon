@@ -1,0 +1,11 @@
+[Unit]
+Description=Acer RGB daemon
+After=systemd-udevd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/acer-rgbd
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

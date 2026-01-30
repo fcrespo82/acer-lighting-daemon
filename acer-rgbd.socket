@@ -1,0 +1,9 @@
+[Unit]
+Description=Acer RGB daemon socket
+
+[Socket]
+ListenStream=/run/acer-rgbd.sock
+SocketMode=0666
+
+[Install]
+WantedBy=sockets.target
