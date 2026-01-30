@@ -6,6 +6,9 @@ This project benefited greatly from the work, testing and research of several co
 
 Small tools to control Acer laptop RGB zones and a daemon that persists/apply states.
 
+> [!CAUTION]
+> The code here was based on the work of others but it was written with the help of AI too 
+
 ## Build
 
 - Build the daemon only:
