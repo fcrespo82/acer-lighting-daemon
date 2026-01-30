@@ -25,6 +25,12 @@ install: acer-rgbd acer-rgb
 	sudo install -Dm755 acer-rgb.sh  /usr/local/bin/acer-rgb
 	sudo install -Dm644 acer-rgbd.service /etc/systemd/system/acer-rgbd.service
 	sudo install -Dm644 acer-rgbd.socket /etc/systemd/system/acer-rgbd.socket
+	# install default state only if it doesn't already exist
+	@if [ ! -f /var/lib/acer-rgbd/state.txt ]; then \
+		sudo install -Dm644 state.default /var/lib/acer-rgbd/state.txt; \
+	else \
+		echo "/var/lib/acer-rgbd/state.txt already exists — leaving it in place"; \
+	fi
 
 	sudo systemctl daemon-reload
 	sudo systemctl enable --now acer-rgbd.service

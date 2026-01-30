@@ -342,6 +342,10 @@ static bool load_and_apply_all(std::array<Settings,3>& states) {
     if (hid_write_feature(newState, hwerr)) {
       states[idx] = newState;
       any = true;
+    } else {
+      // couldn't apply to hardware now (device may not exist yet), keep desired state
+      std::println("[WARN] failed to apply to hw for dev {}: {}", device_to_str(newState.device), hwerr);
+      states[idx] = newState;
     }
   }
 
