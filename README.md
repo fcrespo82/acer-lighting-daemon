@@ -1,5 +1,9 @@
 # acer-lighting
 
+**Thanks**
+
+This project benefited greatly from the work, testing and research of several community contributors — especially: @ZoeBattleSand, @0x189D7997, and @JakeBrxwn. Their reverse-engineering, testing, tooling and discussion (see https://github.com/0x7375646F/Linuwu-Sense/pull/65) made much of this possible.
+
 Small tools to control Acer laptop RGB zones and a daemon that persists/apply states.
 
 ## Build
