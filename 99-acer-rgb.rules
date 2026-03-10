@@ -1,0 +1,6 @@
+# Acer RGB lighting controller - creates stable /dev/acer-rgb symlink
+# PHN16-73 and similar: ENEK5130 controller (0cf2:5130)
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0cf2", ATTRS{idProduct}=="5130", SYMLINK+="acer-rgb", MODE="0660", GROUP="plugdev"
+
+# Older Acer Predator/Nitro models: embedded keyboard controller (1025:174b)
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1025", ATTRS{idProduct}=="174b", SYMLINK+="acer-rgb", MODE="0660", GROUP="plugdev"
