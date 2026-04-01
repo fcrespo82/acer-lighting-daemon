@@ -43,9 +43,9 @@ static void usage(const char* prog) {
 		"  --rgb <R> <G> <B>           (required for static)\n"
 		"  --zone <all|1|2|3|4>        (keyboard only; default: all)\n\n"
 		"Examples:\n"
-		"  sudo {0} /dev/hidraw2 keyboard static --brightness 80 --rgb 255 0 0 --zone all\n"
-		"  sudo {0} /dev/hidraw2 keyboard wave --brightness 70 --speed 6 --direction right\n"
-		"  sudo {0} /dev/hidraw2 lid breathing --brightness 60 --speed 5\n",
+		"  sudo {0} /dev/acer-rgb keyboard static --brightness 80 --rgb 255 0 0 --zone all\n"
+		"  sudo {0} /dev/acer-rgb keyboard wave --brightness 70 --speed 6 --direction right\n"
+		"  sudo {0} /dev/acer-rgb lid breathing --brightness 60 --speed 5\n",
 		prog
 	);
 }
