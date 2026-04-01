@@ -13,12 +13,12 @@ Small tools to control Acer laptop RGB zones and a daemon that persists/apply st
 
 Different Acer laptop generations use different HID controllers for RGB:
 
-| Model | Controller | VID:PID |
-|-------|-----------|---------|
-| PHN16-73 (Helios Neo 16 AI) | ENEK5130 | 0cf2:5130 |
-| Older Predator/Nitro | Embedded keyboard | 1025:174b |
+| Model                       | Controller        | VID:PID   |
+|-----------------------------|-------------------|-----------|
+| PHN16-73 (Helios Neo 16 AI) | ENEK5130          | 0cf2:5130 |
+| Older Predator/Nitro        | Embedded keyboard | 1025:174b |
 
-The installer creates a udev rule that sets up `/dev/acer-rgb` as a stable symlink to the correct device.
+The installer script creates a udev rule that sets up `/dev/acer-rgb` as a stable symlink to the correct device.
 
 ## Build
 
@@ -39,14 +39,17 @@ make build
 
 ## Install
 
-Install the daemon, helper script, udev rules, and systemd units:
+Install the daemon, helper script, udev rules, and systemd units, creates group and add user to group:
 ```sh
 sudo make install
 ```
 
 The `install` target will:
+
 - Copy `acer-rgbd` to `/usr/local/bin/acer-rgbd` and `acer-rgb` to `/usr/local/bin/acer-rgb`.
 - Install udev rules to `/etc/udev/rules.d/99-acer-rgb.rules` (creates `/dev/acer-rgb` symlink).
+- Create group `acer_rgb` to control the device.
+- Add the current user to the `acer_rgb` group.
 - Install systemd unit and socket under `/etc/systemd/system/` and enable/start the service.
 - Create `/var/lib/acer-rgbd/state.txt` with an initial "all green" state so the daemon applies green on first start.
 
