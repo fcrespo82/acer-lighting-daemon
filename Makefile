@@ -1,6 +1,13 @@
 GROUP := acer_rgb
 USER := $(or $(SUDO_USER),$(shell id -un))
 
+VID := 0cf2
+PID := 5130
+
+DEVICE := $(shell for dev in /sys/class/hidraw/hidraw*; do \
+  grep -qi "$(VID):$(PID)" $$dev/device/uevent 2>/dev/null && echo /dev/$$(basename $$dev); \
+done | head -n1)
+
 CXX := g++
 CXXFLAGS := -O2 -std=c++23
 
@@ -41,8 +48,8 @@ install: acer-rgbd
 	sudo udevadm control --reload-rules
 	sudo udevadm trigger
 	sudo systemctl daemon-reload
-	sudo systemctl enable --now acer-rgbd.service
 	sudo systemctl enable --now acer-rgbd.socket
+	sudo systemctl enable --now acer-rgbd.service
 
 uninstall:
 	-sudo systemctl disable --now acer-rgbd.socket
@@ -58,28 +65,30 @@ uninstall:
 	-sudo udevadm trigger
 	-sudo systemctl daemon-reload
 
+uninstall-state:
+	sudo rm -f /var/lib/acer-rgbd/state.txt
 
 all-red: acer-rgb-cli
-	sudo ./acer-rgb-cli /dev/acer-rgb keyboard static --brightness 100 --rgb 255 0 0 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb lid static --brightness 100 --rgb 255 0 0 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb button static --brightness 100 --rgb 255 0 0 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) keyboard static --brightness 100 --rgb 255 0 0 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) lid static --brightness 100 --rgb 255 0 0 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) button static --brightness 100 --rgb 255 0 0 --zone all
 
 all-green: acer-rgb-cli
-	sudo ./acer-rgb-cli /dev/acer-rgb keyboard static --brightness 100 --rgb 0 255 0 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb lid static --brightness 100 --rgb 0 255 0 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb button static --brightness 100 --rgb 0 255 0 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) keyboard static --brightness 100 --rgb 0 255 0 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) lid static --brightness 100 --rgb 0 255 0 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) button static --brightness 100 --rgb 0 255 0 --zone all
 
 all-blue: acer-rgb-cli
-	sudo ./acer-rgb-cli /dev/acer-rgb keyboard static --brightness 100 --rgb 0 0 255 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb lid static --brightness 100 --rgb 0 0 255 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb button static --brightness 100 --rgb 0 0 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) keyboard static --brightness 100 --rgb 0 0 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) lid static --brightness 100 --rgb 0 0 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) button static --brightness 100 --rgb 0 0 255 --zone all
 
 all-magenta: acer-rgb-cli
-	sudo ./acer-rgb-cli /dev/acer-rgb keyboard static --brightness 100 --rgb 255 0 255 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb lid static --brightness 100 --rgb 255 0 255 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb button static --brightness 100 --rgb 255 0 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) keyboard static --brightness 100 --rgb 255 0 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) lid static --brightness 100 --rgb 255 0 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) button static --brightness 100 --rgb 255 0 255 --zone all
 
 all-cyan: acer-rgb-cli
-	sudo ./acer-rgb-cli /dev/acer-rgb keyboard static --brightness 100 --rgb 0 255 255 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb lid static --brightness 100 --rgb 0 255 255 --zone all
-	sudo ./acer-rgb-cli /dev/acer-rgb button static --brightness 100 --rgb 0 255 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) keyboard static --brightness 100 --rgb 0 255 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) lid static --brightness 100 --rgb 0 255 255 --zone all
+	sudo ./acer-rgb-cli $(DEVICE) button static --brightness 100 --rgb 0 255 255 --zone all
