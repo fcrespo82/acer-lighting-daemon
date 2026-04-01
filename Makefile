@@ -22,7 +22,7 @@ acer-rgb-cli:
 build-cli: acer-rgb-cli
 
 clean-cli:
-rm -f acer-rgb-cli
+	rm -f acer-rgb-cli
 
 acer-rgbd: 
 	$(CXX) $(CXXFLAGS) acer-rgbd.cpp -o acer-rgbd
@@ -30,7 +30,7 @@ acer-rgbd:
 build: acer-rgbd
 
 clean:
-rm -f acer-rgbd
+	rm -f acer-rgbd
 
 install: acer-rgbd
 	sudo install -Dm755 acer-rgbd /usr/local/bin/acer-rgbd
